@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <TransactionsProvider>
       <Header onOpenNewTransactionModal={handleOpenNewTransactionsModal}/>
-      <DashBoard/>
+      <DashBoard />
       <NewTransactionModal isOpen={isNewTransactionsModalOpen} onRequestClose={handleCloseNewTransactionsModal}/>
     </TransactionsProvider>
   );

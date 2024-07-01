@@ -10,12 +10,12 @@ export function TransactionsTable() {
                     <tr>
                         <th className="text-left font-normal p-4 text-gray-600">Título</th>
                         <th className="text-left font-normal p-4 text-gray-600">Valor</th>
-                        <th className="text-left font-normal p-4 text-gray-600 hidden sm:table-cell">Categoria</th>
-                        <th className="text-left font-normal p-4 text-gray-600 hidden sm:table-cell md:hidden">Data</th>
+                        <th className="text-left font-normal p-4 text-gray-600 max-sm:hidden">Categoria</th>
+                        <th className="text-left font-normal p-4 text-gray-600">Data</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {transactions.map((transaction) => (
+                    {/* {transactions.map((transaction) => (
                         <tr key={transaction.id} className="bg-white">
                             <td className="p-4 text-gray-800 rounded-l-md">{transaction.title}</td>
                             <td
@@ -35,7 +35,13 @@ export function TransactionsTable() {
                                 {new Intl.DateTimeFormat("pt-BR").format(new Date(transaction.createdAt))}
                             </td>
                         </tr>
-                    ))}
+                    ))} */}
+                    <tr className="bg-white">
+                        <td className="p-4 text-gray-800 rounded-l-md">sadasdas</td>
+                        <td className="p-4 rounded-md text-emerald-500">1231231</td>
+                        <td className="p-4 text-gray-800 max-sm:hidden">sadasdasda</td>
+                        <td className="p-4 text-gray-800 max-sm:table-cell max-md:hidden">3123123</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

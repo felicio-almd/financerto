@@ -15,7 +15,7 @@ interface NewTransactionModalProps {
 }
 
 const colors = {
-    green: 'bg-green',
+    green: 'bg-emerald-300',
     red: 'bg-red-100',
 };
 
@@ -53,7 +53,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }:NewTransactionMod
             <button
                 type="button"
                 onClick={onRequestClose}
-                className="absolute top-4 right-4"
+                className="absolute top-9 right-9"
             >
                 <Image src={closeImg} alt="Fechar modal" className="w-6 h-6" />
             </button>
@@ -113,7 +113,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }:NewTransactionMod
 
                 <button
                     type="submit"
-                    className="w-full px-6 h-16 bg-green-500 text-white rounded-md border-0 text-base mt-6 font-semibold transition-filter duration-200 hover:brightness-90"
+                    className="w-full px-6 h-16 bg-emerald-500 text-white rounded-md border-0 text-base mt-6 font-semibold transition-filter duration-200 hover:brightness-90"
                 >
                     Cadastrar
                 </button>

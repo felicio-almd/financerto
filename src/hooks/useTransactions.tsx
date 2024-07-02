@@ -1,68 +1,76 @@
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
-import { api } from "../services/api";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { firestore } from "../firebase/firebaseAppConfig";
 
 interface Transaction {
-    id: number;
-    title: string
-    amount: number
-    type: string
-    category: string
-    createdAt: string
+  id: string; // Firestore usa IDs como strings
+  title: string;
+  amount: number;
+  type: string;
+  category: string;
+  createdAt: string;
 }
-
-// interface TransactionInput {
-//     title: string
-//     amount: number
-//     type: string
-//     category: string
-// }
 
 type TransactionInput = Omit<Transaction, 'id' | 'createdAt'>;
 
 interface TransactionsProviderProps {
-    children: ReactNode
+  children: ReactNode;
 }
 
 interface TransactionsContextData {
-    transactions: Transaction[];
-    createTransaction: (transaction: TransactionInput) => Promise<void>
+  transactions: Transaction[];
+  createTransaction: (transactionInput: TransactionInput) => Promise<void>;
 }
 
 const TransactionsContext = createContext<TransactionsContextData>(
-    {} as TransactionsContextData
+  {} as TransactionsContextData
 );
 
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
-
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  useEffect(()=>{
-      api('transactions')
-      .then(response => setTransactions(response.data.transactions))
-  },[])
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      const querySnapshot = await getDocs(collection(firestore, "transactions"));
+      const loadedTransactions: Transaction[] = [];
+      querySnapshot.forEach((doc) => {
+        loadedTransactions.push({ id: doc.id, ...doc.data() } as Transaction);
+      });
+      setTransactions(loadedTransactions);
+    };
+
+    fetchTransactions();
+  }, []);
 
   async function createTransaction(transactionInput: TransactionInput) {
-    const response = await api.post('/transactions', {
+    try {
+      const docRef = await addDoc(collection(firestore, "transactions"), {
         ...transactionInput,
-        createdAt: new Date(),
-    })
-
-    const { transaction } = response.data;
-
-    setTransactions([
-        ...transactions,
-        transaction
-    ]);
+        createdAt: new Date().toISOString(), // Firestore requer ISO string para datas
+      });
+      const newTransaction: Transaction = {
+        id: docRef.id,
+        ...transactionInput,
+        createdAt: new Date().toISOString(),
+      };
+      setTransactions([...transactions, newTransaction]);
+    } catch (error) {
+      console.error("Error creating transaction:", error);
+      // Tratar erro conforme necessário
+    }
   }
 
   return (
     <TransactionsContext.Provider value={{ transactions, createTransaction }}>
-        {children}
+      {children}
     </TransactionsContext.Provider>
-  )
+  );
 }
 
 export function useTransactions() {
-    const context = useContext(TransactionsContext);
-
-    return context
+  const context = useContext(TransactionsContext);
+  if (!context) {
+    throw new Error("useTransactions must be used within a TransactionsProvider");
+  }
+  return context;
 }

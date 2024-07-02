@@ -6,20 +6,20 @@ export function TransactionsTable() {
     return (
         <div className="mt-16">
             <table className="w-full border-separate border-spacing-y-2">
-                <thead>
-                    <tr>
-                        <th className="text-left font-normal p-4 text-gray-600">Título</th>
-                        <th className="text-left font-normal p-4 text-gray-600">Valor</th>
-                        <th className="text-left font-normal p-4 text-gray-600 max-sm:hidden">Categoria</th>
-                        <th className="text-left font-normal p-4 text-gray-600">Data</th>
+                <thead className="border border-1">
+                    <tr className="border border-1">
+                        <th className="text-left font-normal p-4 text-gray-600 border border-1">Título</th>
+                        <th className="text-left font-normal p-4 text-gray-600 border border-1">Valor</th>
+                        <th className="text-left font-normal p-4 text-gray-600 max-sm:hidden border border-1">Categoria</th>
+                        <th className="text-left font-normal p-4 text-gray-600 border border-1">Data</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {/* {transactions.map((transaction) => (
+                    {transactions.map((transaction) => (
                         <tr key={transaction.id} className="bg-white">
-                            <td className="p-4 text-gray-800 rounded-l-md">{transaction.title}</td>
+                            <td className="p-4 text-gray-800 rounded-md border border-1">{transaction.title}</td>
                             <td
-                                className={`p-4 rounded-md ${
+                                className={`p-4 rounded-md border border-1 ${
                                     transaction.type === "deposit" ? "text-green-500" : "text-red-500"
                                 }`}
                             >
@@ -28,20 +28,18 @@ export function TransactionsTable() {
                                     currency: "BRL",
                                 }).format(transaction.amount)}
                             </td>
-                            <td className="p-4 text-gray-800 hidden sm:table-cell">
+                            <td className="p-4 text-gray-800 border border-1 max-sm:hidden rounded-md">
                                 {transaction.category}
                             </td>
-                            <td className="p-4 text-gray-800 hidden sm:table-cell md:hidden">
-                                {new Intl.DateTimeFormat("pt-BR").format(new Date(transaction.createdAt))}
+                            <td className="p-4 text-gray-800 max-sm:table-cell max-md:hidden border border-1 rounded-md">
+                                {transaction.createdAt ? (
+                                    new Intl.DateTimeFormat("pt-BR").format(new Date(transaction.createdAt))
+                                ) : (
+                                    "Sem data"
+                                )}
                             </td>
                         </tr>
-                    ))} */}
-                    <tr className="bg-white">
-                        <td className="p-4 text-gray-800 rounded-l-md">sadasdas</td>
-                        <td className="p-4 rounded-md text-emerald-500">1231231</td>
-                        <td className="p-4 text-gray-800 max-sm:hidden">sadasdasda</td>
-                        <td className="p-4 text-gray-800 max-sm:table-cell max-md:hidden">3123123</td>
-                    </tr>
+                    ))}
                 </tbody>
             </table>
         </div>

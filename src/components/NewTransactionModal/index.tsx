@@ -63,12 +63,14 @@ export function NewTransactionModal({ isOpen, onRequestClose }:NewTransactionMod
 
                 <input
                     placeholder="Título"
+                    id='title'
                     value={title}
                     onChange={e => setTitle(e.target.value)}
                     className="w-full px-6 h-16 rounded-md border border-gray-300 bg-gray-200 font-normal text-base placeholder-gray-600"
                 />
                 <input
                     type="number"
+                    id='amount'
                     value={amount}
                     onChange={e => setAmount(Number(e.target.value))}
                     placeholder="Valor"
@@ -106,6 +108,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }:NewTransactionMod
 
                 <input
                     placeholder="Categoria"
+                    id='category'
                     value={category}
                     onChange={e => setCategory(e.target.value)}
                     className="w-full px-6 h-16 rounded-md border border-gray-300 bg-gray-200 font-normal text-base placeholder-gray-600"

@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
 import React from "react";
-import signUp from "../../firebase/auth/signUp";
 import { useRouter } from 'next/navigation';
 import { FirebaseError } from "firebase/app";
+import signUp from "@/firebase/auth/signUp";
 
 function Page() {
     const [email, setEmail] = React.useState('');

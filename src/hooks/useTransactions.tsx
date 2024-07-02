@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { firestore } from "../firebase/firebaseAppConfig";
+import { useAuthContext } from "@/context/AuthContext";
 
 interface Transaction {
   id: string; // Firestore usa IDs como strings
@@ -27,11 +28,15 @@ const TransactionsContext = createContext<TransactionsContextData>(
 );
 
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
+  const { userAuth } = useAuthContext();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
     const fetchTransactions = async () => {
-      const querySnapshot = await getDocs(collection(firestore, "transactions"));
+      if (!userAuth) return;
+
+      const userTransactionsRef = collection(firestore, "users", userAuth.uid, "transactions"); //relação do usuario autenticado com a tabela de usuarios
+      const querySnapshot = await getDocs(userTransactionsRef); // coleta os dados apenas do usuario autenticado
       const loadedTransactions: Transaction[] = [];
       querySnapshot.forEach((doc) => {
         loadedTransactions.push({ id: doc.id, ...doc.data() } as Transaction);
@@ -40,13 +45,16 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     };
 
     fetchTransactions();
-  }, []);
+  }, [userAuth]);
 
   async function createTransaction(transactionInput: TransactionInput) {
+    if (!userAuth) return;
+
     try {
-      const docRef = await addDoc(collection(firestore, "transactions"), {
+      const userTransactionsRef = collection(firestore, "users", userAuth.uid, "transactions");
+      const docRef = await addDoc(userTransactionsRef, {
         ...transactionInput,
-        createdAt: new Date().toISOString(), // Firestore requer ISO string para datas
+        createdAt: new Date().toISOString(),
       });
       const newTransaction: Transaction = {
         id: docRef.id,
@@ -56,7 +64,6 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
       setTransactions([...transactions, newTransaction]);
     } catch (error) {
       console.error("Error creating transaction:", error);
-      // Tratar erro conforme necessário
     }
   }
 

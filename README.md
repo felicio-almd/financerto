@@ -1,45 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# [Financerto](#financerto)
 
-## Getting Started
+LINK PARA ACESSO: <a id="financerto">[https://www.SITE.com]()</a>
 
-First, run the development server:
+**Descrição**: Bem-vindo ao Financerto, sua ferramenta definitiva para o controle e gerenciamento de finanças pessoais. Nosso site oferece uma interface intuitiva e fácil de usar para ajudá-lo a monitorar suas despesas, planejar seu orçamento e alcançar suas metas financeiras. Comece hoje mesmo e transforme sua maneira de lidar com dinheiro!
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Índice
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Instalação](#instalação)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Funcionalidades](#funcionalidades)
+- [Contribuição](#contribuição)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Instalação
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Siga os passos abaixo para configurar o projeto localmente.
+Você vai precisar:
+- [git](https://git-scm.com/downloads)
+- [node.js](https://nodejs.org/en)
+- [vscode](https://code.visualstudio.com/download)
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/financerto.git
+   cd financerto
 
-## Learn More
+2. Instale as Dependências:
+    ```bash
+   npm install
+3. Copie o arquivo .env.example para .env e adicione suas credenciais do Firebase
+    ```bash
+    NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key
+    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-auth-domain
+    NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
+    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-storage-bucket
+    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
+    NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
+4. Execute
+    ```bash
+    npm run dev
+5. Abra http://localhost:3000
 
-To learn more about Next.js, take a look at the following resources:
+## Tecnologias Usadas
+ - React: Biblioteca JavaScript para construção de interfaces de usuário.
+ - Next.js: Framework React para renderização do lado do servidor e geração de sites estáticos.
+ - TypeScript: Superconjunto de JavaScript que adiciona tipagem estática.
+ - Tailwind CSS: Framework CSS utilitário para estilização rápida e eficiente.
+ - Firebase para backend em nuvem
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Funcionalidades
+- Controle de despesas e receitas.
+- Armazenamento de novas transações
+- Planejamento e acompanhamento de orçamento.
+- Autenticação com Google.
+- Armazenamento seguro de dados com Firestore.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Contribuição
+Fique livre para contribuir fazendo fork no projeto :)
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-
-
-NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSyDI0In3qXLy6Srt7zC2TcNJ0cW7I71FJa4
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=financerto-5a3ba.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=financerto-5a3ba
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=financerto-5a3ba.appspot.com
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=850260912695
-NEXT_PUBLIC_FIREBASE_APP_ID=1:850260912695:web:23675d28174c3fadaeedb2
+_FEITO POR [FELICIO ALMEIDA](https://github.com/felicio-almd)_

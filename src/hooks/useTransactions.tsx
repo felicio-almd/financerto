@@ -37,7 +37,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
 
       const userTransactionsRef = collection(firestore, "users", userAuth.uid, "transactions"); //relação do usuario autenticado com a tabela de usuarios
       const querySnapshot = await getDocs(userTransactionsRef); // coleta os dados apenas do usuario autenticado
-      const loadedTransactions: Transaction[] = [];
+      const loadedTransactions: Transaction[] = []; 
       querySnapshot.forEach((doc) => {
         loadedTransactions.push({ id: doc.id, ...doc.data() } as Transaction);
       });
@@ -51,12 +51,12 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     if (!userAuth) return;
 
     try {
-      const userTransactionsRef = collection(firestore, "users", userAuth.uid, "transactions");
-      const docRef = await addDoc(userTransactionsRef, {
+      const userTransactionsRef = collection(firestore, "users", userAuth.uid, "transactions"); //busca as transactions do usuario
+      const docRef = await addDoc(userTransactionsRef, { // e cria uma nova
         ...transactionInput,
         createdAt: new Date().toISOString(),
       });
-      const newTransaction: Transaction = {
+      const newTransaction: Transaction = { //coloca uma nova no array
         id: docRef.id,
         ...transactionInput,
         createdAt: new Date().toISOString(),
@@ -77,7 +77,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
 export function useTransactions() {
   const context = useContext(TransactionsContext);
   if (!context) {
-    throw new Error("useTransactions must be used within a TransactionsProvider");
+    throw new Error("useTransactions precisa ser usado dentro do contexto TransactionsProvider");
   }
   return context;
 }

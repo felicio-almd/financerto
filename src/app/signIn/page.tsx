@@ -78,7 +78,7 @@ function SignIn() {
                     <button type="button" className="p-2 bg-red-500 text-white rounded mb-3 hover:bg-red-700" onClick={() => router.push("/signUp")} disabled={loading}>Cadastrar</button>
                     <button onClick={handleGoogleLogin} disabled={loading}>Login with Google</button>
                 </form>
-                {loading && <p>Carregando...</p>} {/* Indicador de loading */}
+                {loading && <p>Carregando...</p>}
             </section>
         </div>
     );

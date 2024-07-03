@@ -6,10 +6,24 @@ LINK PARA ACESSO: <a id="financerto">[https://www.SITE.com]()</a>
 
 ## Índice
 
-- [Instalação](#instalação)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Funcionalidades](#funcionalidades)
+- [Instalação](#instalação)
 - [Contribuição](#contribuição)
+
+## Tecnologias Usadas
+ - React: Biblioteca JavaScript para construção de interfaces de usuário.
+ - Next.js: Framework React para renderização do lado do servidor e geração de sites estáticos.
+ - TypeScript: Superconjunto de JavaScript que adiciona tipagem estática.
+ - Tailwind CSS: Framework CSS utilitário para estilização rápida e eficiente.
+ - Firebase para backend em nuvem
+
+## Funcionalidades
+- Controle de despesas e receitas.
+- Armazenamento de novas transações
+- Planejamento e acompanhamento de orçamento.
+- Autenticação com Google.
+- Armazenamento seguro de dados com Firestore.
 
 ## Instalação
 
@@ -39,19 +53,7 @@ Você vai precisar:
     npm run dev
 5. Abra http://localhost:3000
 
-## Tecnologias Usadas
- - React: Biblioteca JavaScript para construção de interfaces de usuário.
- - Next.js: Framework React para renderização do lado do servidor e geração de sites estáticos.
- - TypeScript: Superconjunto de JavaScript que adiciona tipagem estática.
- - Tailwind CSS: Framework CSS utilitário para estilização rápida e eficiente.
- - Firebase para backend em nuvem
 
-## Funcionalidades
-- Controle de despesas e receitas.
-- Armazenamento de novas transações
-- Planejamento e acompanhamento de orçamento.
-- Autenticação com Google.
-- Armazenamento seguro de dados com Firestore.
 
 ## Contribuição
 Fique livre para contribuir fazendo fork no projeto :)

@@ -1,3 +1,5 @@
+// CONFIGURAÇÃO INICIAL FIREBASE
+
 import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 

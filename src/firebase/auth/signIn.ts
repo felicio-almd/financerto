@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopu
 
 const auth = getAuth(firebaseAppConfig);
 
+// Login de Usuário com email e senha
 export default async function signIn(email: string, password: string) {
     let result = null,
         error = null;

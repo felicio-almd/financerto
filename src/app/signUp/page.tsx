@@ -13,7 +13,7 @@ function Page() {
 
     const handleForm = async (event: React.FormEvent) => {
         event.preventDefault();
-        setError(null); // Reset error state before trying to sign up
+        setError(null); // Reinicia error state antes de tentar cadastrar
 
         try {
             const { result, error } = await signUp(email, password);
@@ -23,7 +23,7 @@ function Page() {
                 if (firebaseError.message) {
                     setError(firebaseError.message);
                 } else {
-                    setError('Unknown Error');
+                    setError('Erro...');
                 }
                 return;
             }

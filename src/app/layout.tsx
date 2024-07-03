@@ -19,7 +19,9 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={inter.className}>
         <AuthContextProvider>
-          {children}
+          <div className="w-full h-screen flex flex-col items-center">
+            {children}
+          </div>
         </AuthContextProvider>
       </body>
     </html>

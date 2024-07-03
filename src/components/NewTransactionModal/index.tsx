@@ -58,7 +58,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }:NewTransactionMod
                 <Image src={closeImg} alt="Fechar modal" className="w-6 h-6" />
             </button>
 
-            <form onSubmit={handleCreateNewTransaction} className="space-y-8">
+            <form onSubmit={handleCreateNewTransaction} className="flex flex-col gap-3">
                 <h2 className="text-gray-900 text-xl mb-8">Cadastrar Transação</h2>
 
                 <input
@@ -77,7 +77,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }:NewTransactionMod
                     className="w-full px-6 h-16 rounded-md border border-gray-300 bg-gray-200 font-normal text-base placeholder-gray-600"
                 />
 
-                <div className="my-4 grid grid-cols-2 gap-2">
+                <div className="my-2 grid grid-cols-2 gap-2">
                     <button
                         type="button"
                         onClick={() => { setType('deposit'); }}
@@ -116,7 +116,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }:NewTransactionMod
 
                 <button
                     type="submit"
-                    className="w-full px-6 h-16 bg-emerald-500 text-white rounded-md border-0 text-base mt-6 font-semibold transition-filter duration-200 hover:brightness-90"
+                    className="w-full px-6 h-16 bg-emerald-500 text-white rounded-md border-0 text-base mt-4 font-semibold transition-filter duration-200 hover:brightness-90"
                 >
                     Cadastrar
                 </button>

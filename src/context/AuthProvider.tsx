@@ -42,11 +42,9 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
         <AuthContext.Provider value={{ userAuth, logout }}>
             {loading
                 ?
-                <div className="flex items-center justify-center min-h-screen bg-gray-100">
-                    <div className="text-center">
-                        <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
-                        <h1 className="text-xl font-semibold text-gray-700">Loading...</h1>
-                    </div>
+                <div className="flex items-center gap-8 justify-center min-h-screen bg-gray-100">
+                        <div className="text-4xl spinner mr-4"></div>
+                        <h1 className="text-4xl font-bold text-gray-700">Caregando...</h1>
                 </div>
                 :
                 children

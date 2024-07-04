@@ -17,11 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={inter.className}>
+      <body className={inter.className} suppressHydrationWarning={true}>
         <AuthContextProvider>
-          <div className="w-full h-screen flex flex-col items-center">
-            {children}
-          </div>
+            <main className="w-full h-screen flex flex-col items-center">
+              {children}
+            </main>
         </AuthContextProvider>
       </body>
     </html>

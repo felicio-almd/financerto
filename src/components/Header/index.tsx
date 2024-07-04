@@ -14,7 +14,7 @@ export function Header({ onOpenNewTransactionModal }: HeaderProps) {
     function handleLogout () {
         logout();
         if (userAuth == null) {
-            router.push("/signIn");
+            router.push("/sign-in");
         }
     }
 

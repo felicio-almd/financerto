@@ -8,6 +8,11 @@ export function DashBoard() {
         <main className="flex flex-col max-w-[1120px] w-full m-0 px-4 py-10">
             <Summary />
             <TransactionsTable />
+            <div className="self-center">
+                <span>
+                    Github
+                </span>
+            </div>
         </main>
     )
 }

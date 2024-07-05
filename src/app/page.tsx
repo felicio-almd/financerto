@@ -8,6 +8,7 @@ import { Header } from "../components/Header/";
 import { TransactionsProvider } from "@/hooks/useTransactions";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
     const [isNewTransactionsModalOpen, setIsNewTransactionsModalOpen] = useState(false);
@@ -35,6 +36,7 @@ export default function Home() {
                 <TransactionsProvider>
                     <Header onOpenNewTransactionModal={handleOpenNewTransactionsModal} />
                     <DashBoard />
+                    <Footer />
                     <NewTransactionModal isOpen={isNewTransactionsModalOpen} onRequestClose={handleCloseNewTransactionsModal} />
                 </TransactionsProvider>
             )}

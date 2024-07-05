@@ -56,7 +56,7 @@ function Page() {
                             name="email" 
                             id="email" 
                             className="p-2 border border-gray-300 rounded w-full" 
-                            placeholder="email@mail.com" 
+                            placeholder="Diga seu email" 
                         />
                         <label htmlFor="email" className="absolute left-1/2 transform -translate-x-1/2 -top-3 bg-white px-1 text-gray-500">Email</label>
                     </div>
@@ -68,7 +68,7 @@ function Page() {
                             name="password" 
                             id="password" 
                             className="p-2 border border-gray-300 rounded w-full" 
-                            placeholder="senha" 
+                            placeholder="A senha deve conter 6 digitos" 
                         />
                         <label htmlFor="password" className="absolute left-1/2 transform -translate-x-1/2 -top-3 bg-white px-1 text-gray-500">Senha</label>
                     </div>

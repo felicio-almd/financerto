@@ -20,7 +20,7 @@ export function TransactionsTable() {
                             <td className="p-4 text-gray-800 rounded-md border border-1">{transaction.title}</td>
                             <td
                                 className={`p-4 rounded-md border border-1 ${
-                                    transaction.type === "deposit" ? "text-green-500" : "text-red-500"
+                                    transaction.type === "deposit" ? "text-green" : "text-red-500"
                                 }`}
                             >
                                 {new Intl.NumberFormat("pt-BR", {

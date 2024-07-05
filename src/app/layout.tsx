@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={inter.className} suppressHydrationWarning={true}>
         <AuthContextProvider>
-            <main className="w-full h-screen flex flex-col items-center">
+            <main className="w-full flex flex-col items-">
               {children}
             </main>
         </AuthContextProvider>

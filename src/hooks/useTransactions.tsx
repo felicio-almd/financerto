@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
-import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where, deleteDoc, doc } from "firebase/firestore";
 import { firestore } from "../firebase/firebaseAppConfig";
 import { useAuthContext } from "@/context/AuthContext";
 
@@ -21,6 +21,7 @@ interface TransactionsProviderProps {
 interface TransactionsContextData {
   transactions: Transaction[];
   createTransaction: (transactionInput: TransactionInput) => Promise<void>;
+  deleteTransaction: (id: string) => Promise<void>; // Adicionando a função de deletar
 }
 
 const TransactionsContext = createContext<TransactionsContextData>(
@@ -35,9 +36,9 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     const fetchTransactions = async () => {
       if (!userAuth) return;
 
-      const userTransactionsRef = collection(firestore, "users", userAuth.uid, "transactions"); //relação do usuario autenticado com a tabela de usuarios
-      const querySnapshot = await getDocs(userTransactionsRef); // coleta os dados apenas do usuario autenticado
-      const loadedTransactions: Transaction[] = []; 
+      const userTransactionsRef = collection(firestore, "users", userAuth.uid, "transactions");
+      const querySnapshot = await getDocs(userTransactionsRef);
+      const loadedTransactions: Transaction[] = [];
       querySnapshot.forEach((doc) => {
         loadedTransactions.push({ id: doc.id, ...doc.data() } as Transaction);
       });
@@ -51,12 +52,12 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     if (!userAuth) return;
 
     try {
-      const userTransactionsRef = collection(firestore, "users", userAuth.uid, "transactions"); //busca as transactions do usuario
-      const docRef = await addDoc(userTransactionsRef, { // e cria uma nova
+      const userTransactionsRef = collection(firestore, "users", userAuth.uid, "transactions");
+      const docRef = await addDoc(userTransactionsRef, {
         ...transactionInput,
         createdAt: new Date().toISOString(),
       });
-      const newTransaction: Transaction = { //coloca uma nova no array
+      const newTransaction: Transaction = {
         id: docRef.id,
         ...transactionInput,
         createdAt: new Date().toISOString(),
@@ -67,8 +68,20 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     }
   }
 
+  async function deleteTransaction(id: string) {
+    if (!userAuth) return;
+
+    try {
+      const transactionDocRef = doc(firestore, "users", userAuth.uid, "transactions", id);
+      await deleteDoc(transactionDocRef);
+      setTransactions(transactions.filter(transaction => transaction.id !== id));
+    } catch (error) {
+      console.error("Error deleting transaction:", error);
+    }
+  }
+
   return (
-    <TransactionsContext.Provider value={{ transactions, createTransaction }}>
+    <TransactionsContext.Provider value={{ transactions, createTransaction, deleteTransaction }}>
       {children}
     </TransactionsContext.Provider>
   );

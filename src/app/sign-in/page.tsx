@@ -63,7 +63,7 @@ function SignIn() {
     };
 
     return (
-        <div className="flex flex-col justify-between items-center p-24 min-h-screen w-full bg-gradient-to-b from-blue-800 to-blue-300 h-screen">
+        <div className="flex flex-col justify-between items-center px-14 py-24 max-lg:px-10 max-lg:py-20 min-h-screen w-full bg-gradient-to-b from-blue-800 to-blue-300 h-screen">
             <section className="max-w-md mx-auto p-5 border border-gray-300 rounded-lg bg-white">
                 <h1 className="text-3xl font-bold text-green py-4">Seja bem vindo!</h1>
                 <h1 className="text-md py-2 mb-4">Por favor entre com suas credenciais.</h1>

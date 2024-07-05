@@ -1,7 +1,10 @@
 import { useTransactions } from "../../hooks/useTransactions";
 
 export function TransactionsTable() {
-    const { transactions } = useTransactions();
+    const { transactions, deleteTransaction } = useTransactions();
+
+    // Ordenar as transações por data em ordem decrescente
+    const sortedTransactions = [...transactions].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
     return (
         <div className="mt-16">
@@ -12,10 +15,11 @@ export function TransactionsTable() {
                         <th className="text-left font-normal p-4 text-gray-600 border border-1">Valor</th>
                         <th className="text-left font-normal p-4 text-gray-600 max-sm:hidden border border-1">Categoria</th>
                         <th className="text-left font-normal p-4 text-gray-600 border border-1">Data</th>
+                        <th className="text-left font-normal p-4 text-gray-600 border border-1">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {transactions.map((transaction) => (
+                    {sortedTransactions.map((transaction) => (
                         <tr key={transaction.id} className="bg-white">
                             <td className="p-4 text-gray-800 rounded-md border border-1">{transaction.title}</td>
                             <td
@@ -37,6 +41,14 @@ export function TransactionsTable() {
                                 ) : (
                                     "Sem data"
                                 )}
+                            </td>
+                            <td className="p-4 text-gray-800 border border-1 rounded-md">
+                                <button
+                                    className="bg-red-500 text-white px-4 py-2 rounded-md"
+                                    onClick={() => deleteTransaction(transaction.id)}
+                                >
+                                    Apagar
+                                </button>
                             </td>
                         </tr>
                     ))}

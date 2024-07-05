@@ -42,7 +42,7 @@ function Page() {
     };
 
     return (
-        <div className="flex w-full flex-col justify-between items-center px-14 py-24 max-lg:px-10 max-lg:py-20 min-h-screen bg-gradient-to-b from-blue-800 to-blue-300 h-screen">
+        <div className="flex w-full flex-col justify-center items-center max-lg:px-10 max-lg:py-20 min-h-screen bg-gradient-to-b from-blue-800 to-blue-300 h-screen">
             <section className="max-w-md mx-auto p-5 border border-gray-300 rounded-lg bg-white">
                 <h1 className="text-3xl font-bold text-green py-3">Cadastre-se</h1>
                 <h1 className="text-md py-2 mb-4">Digite suas novas credenciais.</h1>

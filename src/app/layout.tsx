@@ -59,7 +59,7 @@ export default function RootLayout({
         <AuthContextProvider>
           <main className="w-full flex flex-col items-center">
             {children}
-            <InstallPWAButton />
+            {/* <InstallPWAButton /> */}
           </main>
         </AuthContextProvider>
       </body>

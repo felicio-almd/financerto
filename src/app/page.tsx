@@ -9,6 +9,7 @@ import { TransactionsProvider } from "@/hooks/useTransactions";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { Footer } from "@/components/Footer";
+import { InstallPWAButton } from "@/components/installPWAButton";
 
 export default function Home() {
     const [isNewTransactionsModalOpen, setIsNewTransactionsModalOpen] = useState(false);
@@ -36,6 +37,7 @@ export default function Home() {
                 <TransactionsProvider>
                     <Header onOpenNewTransactionModal={handleOpenNewTransactionsModal} />
                     <DashBoard />
+                    <InstallPWAButton />
                     <Footer />
                     <NewTransactionModal isOpen={isNewTransactionsModalOpen} onRequestClose={handleCloseNewTransactionsModal} />
                 </TransactionsProvider>

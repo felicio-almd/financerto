@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 
 export function InstallPWAButton() {
@@ -7,48 +6,49 @@ export function InstallPWAButton() {
   const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
-    const handler = (e: any) => {
+    const handleBeforeInstallPrompt = (e: any) => {
       e.preventDefault();
       setDeferredPrompt(e);
     };
-    
-    window.addEventListener('beforeinstallprompt', handler);
 
-    const installedHandler = () => {
+    const handleAppInstalled = () => {
       setIsInstalled(true);
     };
-    window.addEventListener('appinstalled', installedHandler);
 
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('appinstalled', handleAppInstalled);
+
+    // Verifica se já está instalado
     if (window.matchMedia('(display-mode: standalone)').matches) {
       setIsInstalled(true);
     }
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handler);
-      window.removeEventListener('appinstalled', installedHandler);
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
     };
   }, []);
 
-  const installApp = () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult: any) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the install prompt');
-        }
-        setDeferredPrompt(null);
-      });
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return;
+    
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    
+    if (outcome === 'accepted') {
+      console.log('Usuário aceitou a instalação');
     }
+    setDeferredPrompt(null);
   };
 
   if (isInstalled || !deferredPrompt) return null;
 
   return (
     <button
-      onClick={installApp}
-      className="fixed bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 flex items-center gap-2"
+      onClick={handleInstallClick}
+      className="fixed bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg z-50 flex items-center gap-2 animate-bounce"
     >
-        Instalar App
+      <span className="hidden sm:inline">Instalar App</span>
     </button>
   );
 }

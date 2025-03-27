@@ -2,15 +2,8 @@ import { ReactNode, createContext, useContext, useEffect, useState } from "react
 import { collection, addDoc, getDocs, query, where, deleteDoc, doc } from "firebase/firestore";
 import { firestore } from "../firebase/firebaseAppConfig";
 import { useAuthContext } from "@/context/AuthContext";
+import { Transaction } from "@/types/Transaction";
 
-interface Transaction {
-  id: string; // Firestore usa IDs como strings
-  title: string;
-  amount: number;
-  type: string;
-  category: string;
-  createdAt: string;
-}
 
 type TransactionInput = Omit<Transaction, 'id' | 'createdAt'>;
 

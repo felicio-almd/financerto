@@ -5,7 +5,7 @@ import incomeImg from '../../../public/assets/income.svg'
 import outcomeImg from '../../../public/assets/outcome.svg'
 import clsx from 'clsx';
 
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useRef, useEffect } from 'react';
 import { useTransactions } from '../../hooks/useTransactions';
 import Image from 'next/image';
 
@@ -23,21 +23,39 @@ export function NewTransactionModal({ isOpen, onRequestClose }:NewTransactionMod
     const { createTransaction } = useTransactions();
 
     const [title, setTitle] = useState('');
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState('');
     const [category, setCategory] = useState('');
     const [type, setType] = useState('deposit');
 
+    const titleInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (isOpen) {
+            titleInputRef.current?.focus();
+        }
+    }, [isOpen]);
+
+    const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const inputValue = e.target.value;
+        const numericValue = inputValue.replace(/[^0-9]/g, '');
+        
+        const sanitizedValue = numericValue.replace(/^0+/, '');
+        const limitedValue = sanitizedValue.slice(0, 24);
+        
+        setAmount(limitedValue);
+    };
+
     async function handleCreateNewTransaction (e: FormEvent) {
-        e.preventDefault() // prevenção de recarregamento da pagina e evita que percamos os dados do form
+        e.preventDefault()
         
         await createTransaction({
             title,
-            amount,
+            amount: amount === '' ? 0 : Number(amount),
             category,
             type,
         })
         setTitle('');
-        setAmount(0);
+        setAmount('');
         setCategory('');
         setType('deposit');
         onRequestClose();
@@ -49,19 +67,30 @@ export function NewTransactionModal({ isOpen, onRequestClose }:NewTransactionMod
             onRequestClose={onRequestClose}
             overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
             className="bg-white rounded-lg p-8 relative w-full max-w-lg mx-4"
+            // suporte para fechar com ESC e clique fora
+            shouldCloseOnOverlayClick={true}
+            shouldCloseOnEsc={true}
+            // Configurações de acessibilidade
+            contentLabel="Cadastrar Transação"
+            ariaHideApp={false}
         >
             <button
                 type="button"
                 onClick={onRequestClose}
                 className="absolute top-9 right-9"
+                aria-label="Fechar modal"
             >
                 <Image src={closeImg} alt="Fechar modal" className="w-6 h-6" />
             </button>
 
-            <form onSubmit={handleCreateNewTransaction} className="flex flex-col gap-3">
+            <form 
+                onSubmit={handleCreateNewTransaction} 
+                className="flex flex-col gap-3"
+            >
                 <h2 className="text-gray-900 text-xl mb-8">Cadastrar Transação</h2>
 
                 <input
+                    ref={titleInputRef}
                     placeholder="Título"
                     id='title'
                     value={title}
@@ -71,8 +100,10 @@ export function NewTransactionModal({ isOpen, onRequestClose }:NewTransactionMod
                 <input
                     type="number"
                     id='amount'
+                    min="0"
+                    max="999999999999999999999999"
                     value={amount}
-                    onChange={e => setAmount(Number(e.target.value))}
+                    onChange={handleAmountChange}
                     placeholder="Valor"
                     className="w-full px-6 h-16 rounded-md border border-gray-300 bg-gray-200 font-normal text-base placeholder-gray-600"
                 />

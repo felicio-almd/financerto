@@ -29,7 +29,7 @@ export function TransactionsTable() {
     };
 
     const formatDate = (dateString: string) => {
-        return dateString 
+        return dateString
             ? new Intl.DateTimeFormat("pt-BR").format(new Date(dateString))
             : "Sem data";
     };
@@ -48,31 +48,30 @@ export function TransactionsTable() {
                 </thead>
                 <tbody>
                     {sortedTransactions.map((transaction) => (
-                        <tr 
-                            key={transaction.id} 
+                        <tr
+                            key={transaction.id}
                             className="bg-white cursor-pointer sm:cursor-default"
                         >
-                            <td 
+                            <td
                                 className="p-4 text-gray-800 rounded-md border border-1 max-sm:text-sm"
                                 onClick={() => handleTransactionClick(transaction)}
                             >
                                 {transaction.title}
                             </td>
                             <td
-                                className={`p-4 rounded-md border border-1 max-sm:text-sm ${
-                                    transaction.type === "deposit" ? "text-green" : "text-red-500"
-                                }`}
+                                className={`p-4 rounded-md border border-1 max-sm:text-sm ${transaction.type === "deposit" ? "text-green" : "text-red-500"
+                                    }`}
                                 onClick={() => handleTransactionClick(transaction)}
                             >
                                 {formatCurrency(transaction.amount)}
                             </td>
-                            <td 
+                            <td
                                 className="p-4 text-gray-800 border border-1 max-sm:hidden rounded-md max-sm:text-sm"
                                 onClick={() => handleTransactionClick(transaction)}
                             >
                                 {transaction.category}
                             </td>
-                            <td 
+                            <td
                                 className="p-4 text-gray-800 max-sm:table-cell max-md:!hidden border border-1 rounded-md"
                                 onClick={() => handleTransactionClick(transaction)}
                             >
@@ -110,41 +109,40 @@ export function TransactionsTable() {
                 {selectedTransaction && (
                     <div className="space-y-4">
                         <h2 className="text-xl font-bold mb-4">Detalhes da Transação</h2>
-                        
+
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <p className="text-gray-600">Título</p>
                                 <p className="font-medium break-words">{selectedTransaction.title}</p>
                             </div>
-                            
+
                             <div>
                                 <p className="text-gray-600">Valor</p>
-                                <p className={`font-medium ${
-                                    selectedTransaction.type === "deposit" 
-                                        ? "text-green" 
+                                <p className={`font-medium ${selectedTransaction.type === "deposit"
+                                        ? "text-green"
                                         : "text-red-500"
-                                }`}>
+                                    }`}>
                                     {formatCurrency(selectedTransaction.amount)}
                                 </p>
                             </div>
-                            
+
                             <div>
                                 <p className="text-gray-600">Categoria</p>
                                 <p className="font-medium">{selectedTransaction.category}</p>
                             </div>
-                            
+
                             <div>
                                 <p className="text-gray-600">Data</p>
                                 <p className="font-medium">
                                     {formatDate(selectedTransaction.createdAt)}
                                 </p>
                             </div>
-                            
+
                             <div>
                                 <p className="text-gray-600">Tipo</p>
                                 <p className="font-medium">
-                                    {selectedTransaction.type === 'deposit' 
-                                        ? 'Entrada' 
+                                    {selectedTransaction.type === 'deposit'
+                                        ? 'Entrada'
                                         : 'Saída'}
                                 </p>
                             </div>

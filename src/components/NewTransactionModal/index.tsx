@@ -19,7 +19,7 @@ const colors = {
     red: 'bg-red-100',
 };
 
-export function NewTransactionModal({ isOpen, onRequestClose }:NewTransactionModalProps ) {
+export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionModalProps) {
     const { createTransaction } = useTransactions();
 
     const [title, setTitle] = useState('');
@@ -35,19 +35,10 @@ export function NewTransactionModal({ isOpen, onRequestClose }:NewTransactionMod
         }
     }, [isOpen]);
 
-    const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const inputValue = e.target.value;
-        const numericValue = inputValue.replace(/[^0-9]/g, '');
-        
-        const sanitizedValue = numericValue.replace(/^0+/, '');
-        const limitedValue = sanitizedValue.slice(0, 24);
-        
-        setAmount(limitedValue);
-    };
 
-    async function handleCreateNewTransaction (e: FormEvent) {
+    async function handleCreateNewTransaction(e: FormEvent) {
         e.preventDefault()
-        
+
         await createTransaction({
             title,
             amount: amount === '' ? 0 : Number(amount),
@@ -83,8 +74,8 @@ export function NewTransactionModal({ isOpen, onRequestClose }:NewTransactionMod
                 <Image src={closeImg} alt="Fechar modal" className="w-6 h-6" />
             </button>
 
-            <form 
-                onSubmit={handleCreateNewTransaction} 
+            <form
+                onSubmit={handleCreateNewTransaction}
                 className="flex flex-col gap-3"
             >
                 <h2 className="text-gray-900 text-xl mb-8">Cadastrar Transação</h2>
@@ -98,12 +89,22 @@ export function NewTransactionModal({ isOpen, onRequestClose }:NewTransactionMod
                     className="w-full px-6 h-16 rounded-md border border-gray-300 bg-gray-200 font-normal text-base placeholder-gray-600"
                 />
                 <input
-                    type="number"
+                    type="text"
+                    inputMode="decimal"
                     id='amount'
-                    min="0"
-                    max="999999999999999999999999"
                     value={amount}
-                    onChange={handleAmountChange}
+                    onChange={(e) => {
+                        const value = e.target.value.replace(/[^0-9,.]/g, '');
+
+                        const formattedValue = value.replace(',', '.');
+
+                        if ((value.match(/,/g) || []).length > 1 ||
+                            (value.match(/\./g) || []).length > 1) {
+                            return;
+                        }
+
+                        setAmount(formattedValue);
+                    }}
                     placeholder="Valor"
                     className="w-full px-6 h-16 rounded-md border border-gray-300 bg-gray-200 font-normal text-base placeholder-gray-600"
                 />
